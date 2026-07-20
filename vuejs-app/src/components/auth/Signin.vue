@@ -9,8 +9,13 @@
           <p class="login-box-msg">Sign in to start your session</p>
           <form @submit.prevent="signIn">
             <div class="input-group mb-3">
-              <input type="email" v-model="user.email" class="form-control" placeholder="Email"
-                :class="{ 'is-invalid': !!userError.email }" />
+              <input
+                type="email"
+                v-model="user.email"
+                class="form-control"
+                placeholder="Email"
+                :class="{ 'is-invalid': !!userError.email }"
+              />
               <div class="input-group-append">
                 <div class="input-group-text">
                   <span class="fas fa-envelope"></span>
@@ -21,8 +26,14 @@
               </div>
             </div>
             <div class="input-group mb-3">
-              <input type="password" v-model="user.password" class="form-control" placeholder="Password" autocomplete
-                :class="{ 'is-invalid': !!userError.password }" />
+              <input
+                type="password"
+                v-model="user.password"
+                class="form-control"
+                placeholder="Password"
+                autocomplete
+                :class="{ 'is-invalid': !!userError.password }"
+              />
               <div class="input-group-append">
                 <div class="input-group-text">
                   <span class="fas fa-lock"></span>
@@ -35,12 +46,16 @@
             <div class="row">
               <div class="col-8"></div>
               <div class="col-4">
-                <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                <button type="submit" class="btn btn-primary btn-block">
+                  Sign In
+                </button>
               </div>
             </div>
           </form>
           <p class="mb-0">
-            <router-link :to="{ name: 'auth.signup' }" class="text-center">Register a new membership</router-link>
+            <router-link :to="{ name: 'auth.signup' }" class="text-center"
+              >Register a new membership</router-link
+            >
           </p>
         </div>
       </div>
@@ -77,7 +92,7 @@ function resetAllState() {
 
 async function signIn() {
   try {
-    LoadingModal('Signing In...');
+    LoadingModal("Signing In...");
     const response = await apiSignIn(user);
     const { data } = response;
     userStore.setState(data.user);
@@ -88,14 +103,17 @@ async function signIn() {
   } catch (error) {
     const { response } = error;
     if (!response) {
-      return MessageModal({ icon: "error", title: "Error", text: error.message });
+      return MessageModal({
+        icon: "error",
+        title: "Error",
+        text: error.message,
+      });
     }
     const { status, data } = response;
     if (status === 422) {
       Object.keys(userError).forEach((key) => {
-        userError[key] = data.errors[key]
-          ? data.errors[key][0]
-          : "";
+        console.log(key)
+        userError[key] = data.errors[key] ? data.errors[key][0] : "";
       });
       return CloseModal();
     }

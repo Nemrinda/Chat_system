@@ -119,6 +119,7 @@ async function signUp() {
       text: "Your account has been created successfully."
     });
   } catch (error) {
+
     const { response } = error;
     if (!response) {
       return MessageModal({ icon: "error", title: "Error", text: error.message });
