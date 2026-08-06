@@ -23,7 +23,6 @@ onMounted(async () => {
 
     const token = route.query.token;
     const response = await apiGoogleOAuthExchangeToken(token);
-    console.log(token);
     userStore.setState(response.data.user);
     userStore.setSanctumToken(response.data.token);
     CloseModal();
